@@ -15,7 +15,7 @@ OPDS = rdflib.Namespace('http://joinedupdata.org/ontologies/philanthropy/')
 g.namespace_manager.bind('opds', URIRef('http://joinedupdata.org/ontologies/philanthropy/'))
 
 #Load the data
-g.load('../Ontologies/DraftOntology0.1.rdf')
+g.load('DraftOntology0.1.rdf')
 
 #Loop through all the available defaultSubjects
 def generateModel(subjectEntity):

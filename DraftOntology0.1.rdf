@@ -1,0 +1,220 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+    <!ENTITY philanthropy "http://joinedupdata.org/ontologies/philanthropy/" >
+]>
+
+
+<rdf:RDF xmlns="http://joinedupdata.org/ontologies/philanthropy/"
+     xml:base="http://joinedupdata.org/ontologies/philanthropy/"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:philanthropy="http://joinedupdata.org/ontologies/philanthropy/"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <owl:Ontology rdf:about="http://joinedupdata.org/ontologies/philanthropy/">
+        <owl:versionIRI rdf:resource="&philanthropy;0.1"/>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://joinedupdata.org/ontologies/philanthropy/defaultSubject -->
+
+    <owl:AnnotationProperty rdf:about="&philanthropy;defaultSubject"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://joinedupdata.org/ontologies/philanthropy/event -->
+
+    <owl:ObjectProperty rdf:about="&philanthropy;event"/>
+    
+
+
+    <!-- http://joinedupdata.org/ontologies/philanthropy/fundingOrganization -->
+
+    <owl:ObjectProperty rdf:about="&philanthropy;fundingOrganization">
+        <rdfs:domain rdf:resource="&philanthropy;Activity"/>
+        <rdfs:range rdf:resource="&philanthropy;Organization"/>
+        <rdfs:subPropertyOf rdf:resource="&philanthropy;organization"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://joinedupdata.org/ontologies/philanthropy/organization -->
+
+    <owl:ObjectProperty rdf:about="&philanthropy;organization"/>
+    
+
+
+    <!-- http://joinedupdata.org/ontologies/philanthropy/recipientOrganization -->
+
+    <owl:ObjectProperty rdf:about="&philanthropy;recipientOrganization">
+        <rdfs:domain rdf:resource="&philanthropy;Activity"/>
+        <rdfs:range rdf:resource="&philanthropy;Organization"/>
+        <rdfs:subPropertyOf rdf:resource="&philanthropy;organization"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://joinedupdata.org/ontologies/philanthropy/grantID -->
+
+    <owl:DatatypeProperty rdf:about="&philanthropy;grantID">
+        <rdfs:domain rdf:resource="&philanthropy;FundingActivity"/>
+        <rdfs:range rdf:resource="&rdfs;Literal"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://joinedupdata.org/ontologies/philanthropy/title -->
+
+    <owl:DatatypeProperty rdf:about="&philanthropy;title">
+        <rdfs:label xml:lang="en">Title</rdfs:label>
+        <rdfs:domain rdf:resource="&philanthropy;Activity"/>
+        <rdfs:domain rdf:resource="&philanthropy;Organization"/>
+        <rdfs:range rdf:resource="&rdfs;Literal"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://joinedupdata.org/ontologies/philanthropy/Activity -->
+
+    <owl:Class rdf:about="&philanthropy;Activity">
+        <rdfs:label xml:lang="en">Activity</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&philanthropy;Thing"/>
+        <rdfs:comment xml:lang="en">An activity is a container for a series of events. Commonly activities take the form of &apos;Projects&apos;.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://joinedupdata.org/ontologies/philanthropy/Event -->
+
+    <owl:Class rdf:about="&philanthropy;Event">
+        <rdfs:label xml:lang="en">Event</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&philanthropy;Thing"/>
+        <rdfs:comment xml:lang="en">An occurence in the lifetime of an activity.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://joinedupdata.org/ontologies/philanthropy/FundingActivity -->
+
+    <owl:Class rdf:about="&philanthropy;FundingActivity">
+        <rdfs:subClassOf rdf:resource="&philanthropy;Activity"/>
+    </owl:Class>
+    
+
+
+    <!-- http://joinedupdata.org/ontologies/philanthropy/GrantActivity -->
+
+    <owl:Class rdf:about="&philanthropy;GrantActivity">
+        <rdfs:label xml:lang="en">Grant</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&philanthropy;FundingActivity"/>
+        <defaultSubject rdf:datatype="&xsd;boolean">true</defaultSubject>
+    </owl:Class>
+    
+
+
+    <!-- http://joinedupdata.org/ontologies/philanthropy/Loan -->
+
+    <owl:Class rdf:about="&philanthropy;Loan">
+        <rdfs:subClassOf rdf:resource="&philanthropy;FundingActivity"/>
+    </owl:Class>
+    
+
+
+    <!-- http://joinedupdata.org/ontologies/philanthropy/Organization -->
+
+    <owl:Class rdf:about="&philanthropy;Organization">
+        <rdfs:subClassOf rdf:resource="&philanthropy;Thing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://joinedupdata.org/ontologies/philanthropy/Place -->
+
+    <owl:Class rdf:about="&philanthropy;Place">
+        <rdfs:subClassOf rdf:resource="&philanthropy;Thing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://joinedupdata.org/ontologies/philanthropy/SocialInvestment -->
+
+    <owl:Class rdf:about="&philanthropy;SocialInvestment">
+        <rdfs:subClassOf rdf:resource="&philanthropy;FundingActivity"/>
+    </owl:Class>
+    
+
+
+    <!-- http://joinedupdata.org/ontologies/philanthropy/Thing -->
+
+    <owl:Class rdf:about="&philanthropy;Thing"/>
+    
+
+
+    <!-- http://schema.org/Place -->
+
+    <owl:Class rdf:about="http://schema.org/Place">
+        <rdfs:subClassOf rdf:resource="http://schema.org/Thing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://schema.org/Thing -->
+
+    <owl:Class rdf:about="http://schema.org/Thing"/>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.4.2) http://owlapi.sourceforge.net -->
+
