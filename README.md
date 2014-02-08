@@ -16,4 +16,3 @@ It will also provide all the details required for translation of:
 * CSV to JSON data
 * JSON to CSV
 * JSON to Linked Data
-

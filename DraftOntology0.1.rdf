@@ -84,6 +84,16 @@
     
 
 
+    <!-- http://joinedupdata.org/ontologies/philanthropy/classifications -->
+
+    <owl:ObjectProperty rdf:about="&philanthropy;classifications">
+        <rdfs:label xml:lang="en">Classifications</rdfs:label>
+        <rdfs:domain rdf:resource="&philanthropy;Activity"/>
+        <rdfs:range rdf:resource="&philanthropy;Classification"/>
+    </owl:ObjectProperty>
+    
+
+
     <!-- http://joinedupdata.org/ontologies/philanthropy/commitment -->
 
     <owl:ObjectProperty rdf:about="&philanthropy;commitment">
@@ -118,6 +128,17 @@
         <rdfs:domain rdf:resource="&philanthropy;Activity"/>
         <rdfs:range rdf:resource="&philanthropy;Organization"/>
         <rdfs:subPropertyOf rdf:resource="&philanthropy;organization"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://joinedupdata.org/ontologies/philanthropy/fundingType -->
+
+    <owl:ObjectProperty rdf:about="&philanthropy;fundingType">
+        <rdfs:label xml:lang="en">Funding Type</rdfs:label>
+        <rdfs:range rdf:resource="&philanthropy;Classification"/>
+        <rdfs:domain rdf:resource="&philanthropy;Grant"/>
+        <rdfs:subPropertyOf rdf:resource="&philanthropy;classifications"/>
     </owl:ObjectProperty>
     
 
@@ -269,10 +290,22 @@
     
 
 
+    <!-- http://joinedupdata.org/ontologies/philanthropy/code -->
+
+    <owl:DatatypeProperty rdf:about="&philanthropy;code">
+        <rdfs:label xml:lang="en">Code</rdfs:label>
+        <rdfs:domain rdf:resource="&philanthropy;Classification"/>
+        <rdfs:range rdf:resource="&rdfs;Literal"/>
+        <rdfs:range rdf:resource="&xsd;anyURI"/>
+    </owl:DatatypeProperty>
+    
+
+
     <!-- http://joinedupdata.org/ontologies/philanthropy/currency -->
 
     <owl:DatatypeProperty rdf:about="&philanthropy;currency">
         <rdfs:label xml:lang="en">Currency</rdfs:label>
+        <rdfs:domain rdf:resource="&philanthropy;Activity"/>
         <rdfs:domain rdf:resource="&philanthropy;Transaction"/>
         <rdfs:range rdf:resource="&rdfs;Literal"/>
     </owl:DatatypeProperty>
@@ -350,6 +383,7 @@
         <rdfs:label xml:lang="en">Name</rdfs:label>
         <fieldWeight>1.1</fieldWeight>
         <rdfs:domain rdf:resource="&philanthropy;Activity"/>
+        <rdfs:domain rdf:resource="&philanthropy;Classification"/>
         <rdfs:domain rdf:resource="&philanthropy;Document"/>
         <rdfs:domain rdf:resource="&philanthropy;Event"/>
         <rdfs:domain rdf:resource="&philanthropy;Organization"/>
@@ -421,8 +455,7 @@
     <owl:DatatypeProperty rdf:about="&philanthropy;url">
         <rdfs:label xml:lang="en">Website</rdfs:label>
         <eGrantMapping>Grantee URL</eGrantMapping>
-        <fieldWeight>8
-</fieldWeight>
+        <fieldWeight>8</fieldWeight>
         <rdfs:domain rdf:resource="&philanthropy;Activity"/>
         <rdfs:domain rdf:resource="&philanthropy;Organization"/>
         <rdfs:range rdf:resource="&rdfs;Literal"/>
@@ -451,6 +484,17 @@
     
 
 
+    <!-- http://joinedupdata.org/ontologies/philanthropy/vocabulary -->
+
+    <owl:DatatypeProperty rdf:about="&philanthropy;vocabulary">
+        <rdfs:label xml:lang="en">Vocabulary</rdfs:label>
+        <rdfs:domain rdf:resource="&philanthropy;Classification"/>
+        <rdfs:range rdf:resource="&rdfs;Literal"/>
+        <rdfs:range rdf:resource="&xsd;anyURI"/>
+    </owl:DatatypeProperty>
+    
+
+
     <!-- 
     ///////////////////////////////////////////////////////////////////////////////////////
     //
@@ -472,9 +516,19 @@
     
 
 
+    <!-- http://joinedupdata.org/ontologies/philanthropy/Classification -->
+
+    <owl:Class rdf:about="&philanthropy;Classification">
+        <rdfs:label xml:lang="en">Classifications</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&philanthropy;Thing"/>
+    </owl:Class>
+    
+
+
     <!-- http://joinedupdata.org/ontologies/philanthropy/Document -->
 
     <owl:Class rdf:about="&philanthropy;Document">
+        <rdfs:label xml:lang="en">Documents</rdfs:label>
         <rdfs:subClassOf rdf:resource="&philanthropy;Thing"/>
     </owl:Class>
     
@@ -520,6 +574,7 @@
     <!-- http://joinedupdata.org/ontologies/philanthropy/Measurement -->
 
     <owl:Class rdf:about="&philanthropy;Measurement">
+        <rdfs:label xml:lang="en">Results</rdfs:label>
         <rdfs:subClassOf rdf:resource="&philanthropy;Thing"/>
     </owl:Class>
     
@@ -528,6 +583,7 @@
     <!-- http://joinedupdata.org/ontologies/philanthropy/Organization -->
 
     <owl:Class rdf:about="&philanthropy;Organization">
+        <rdfs:label xml:lang="en">Organization</rdfs:label>
         <rdfs:subClassOf rdf:resource="&philanthropy;Thing"/>
     </owl:Class>
     
@@ -536,6 +592,7 @@
     <!-- http://joinedupdata.org/ontologies/philanthropy/Place -->
 
     <owl:Class rdf:about="&philanthropy;Place">
+        <rdfs:label xml:lang="en">Location</rdfs:label>
         <rdfs:subClassOf rdf:resource="&philanthropy;Thing"/>
     </owl:Class>
     
@@ -559,6 +616,7 @@
     <!-- http://joinedupdata.org/ontologies/philanthropy/Transaction -->
 
     <owl:Class rdf:about="&philanthropy;Transaction">
+        <rdfs:label xml:lang="en">Transaction</rdfs:label>
         <rdfs:subClassOf rdf:resource="&philanthropy;Thing"/>
     </owl:Class>
 </rdf:RDF>

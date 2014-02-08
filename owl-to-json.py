@@ -1,6 +1,6 @@
 import rdflib
 from rdflib import URIRef, Literal
-from rdflib import RDFS, OWL
+from rdflib import RDFS, OWL, XSD
 import json
 
 def getName(uriRef):
@@ -32,15 +32,16 @@ def generateModel(subjectEntity, depth):
    
         for dataProperty in g.subjects(predicate=RDFS.domain,object=subjectOrParent):
             ## If the range is a literal, then we add a data property placeholder
-            if (dataProperty, RDFS.range, RDFS.Literal) in g:
+            if ((dataProperty, RDFS.range, RDFS.Literal)) in g:
                 output[subject].update({getName(dataProperty):''})
+           ## If the range is a dateTime handle that here
+            elif ((dataProperty, RDFS.range, XSD.dateTime)) in g:
+                output[subject].update({getName(dataProperty):'YYYY-MM-DD'})
             ## else we assume the range is an object (we may need to handle for more types of range, such as integer here in future)
             else: 
                 for subObject in g.objects(subject=dataProperty,predicate=RDFS.range):  
-                    # In the long-run we want to alter the output we get here
-                    # Removing the intermediate Objects, and turning objects into arrays
+                    # We want to avoid deep nesting, so whenever we get more levels deep we should use an indentifier 
                     if depth < 2:
-                        # output[subject].update([generateModel(subObject,depth+1)])
                         output[subject].update({getName(dataProperty): generateModel(subObject,depth+1)})
                     else:
                         output[subject].update({getName(dataProperty): ''})
