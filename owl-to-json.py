@@ -18,7 +18,8 @@ g.namespace_manager.bind('opds', URIRef('http://joinedupdata.org/ontologies/phil
 g.load('DraftOntology0.1.rdf')
 
 #Loop through all the available defaultSubjects
-def generateModel(subjectEntity):
+def generateModel(subjectEntity, depth):
+    
     output = {}
     # Check if subject exists
     # subjectLabel = str(list(g.preferredLabel(defaultEntity,lang=defaultLanguage,default='root'))[0][1]) 
@@ -31,20 +32,26 @@ def generateModel(subjectEntity):
    
         for dataProperty in g.subjects(predicate=RDFS.domain,object=subjectOrParent):
             ## If the range is a literal, then we add a data property placeholder
-            if (dataProperty, RDFS.range, RDFS.Literal) in g: 
+            if (dataProperty, RDFS.range, RDFS.Literal) in g:
                 output[subject].update({getName(dataProperty):''})
             ## else we assume the range is an object (we may need to handle for more types of range, such as integer here in future)
             else: 
                 for subObject in g.objects(subject=dataProperty,predicate=RDFS.range):  
                     # In the long-run we want to alter the output we get here
                     # Removing the intermediate Objects, and turning objects into arrays
-                    output[subject].update({getName(dataProperty): generateModel(subObject)})
+                    if depth < 2:
+                        # output[subject].update([generateModel(subObject,depth+1)])
+                        output[subject].update({getName(dataProperty): generateModel(subObject,depth+1)})
+                    else:
+                        output[subject].update({getName(dataProperty): ''})
                     pass
-
-    return output          
+    if(depth > 1):
+        return output[subject]
+    else:
+        return output          
 
 for defaultEntity in g.subjects(predicate=OPDS.defaultSubject):
-    model = generateModel(defaultEntity)
+    model = generateModel(defaultEntity,1)
     
 # output = {}
 # output = generateModel(URIRef('http://joinedupdata.org/ontologies/philanthropy/Organization'))
