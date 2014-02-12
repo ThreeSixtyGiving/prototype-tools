@@ -52,6 +52,18 @@
     
 
 
+    <!-- http://joinedupdata.org/ontologies/philanthropy/rollUp -->
+
+    <owl:AnnotationProperty rdf:about="&philanthropy;rollUp"/>
+    
+
+
+    <!-- http://joinedupdata.org/ontologies/philanthropy/totalUp -->
+
+    <owl:AnnotationProperty rdf:about="&philanthropy;totalUp"/>
+    
+
+
     <!-- 
     ///////////////////////////////////////////////////////////////////////////////////////
     //
@@ -73,13 +85,31 @@
     
 
 
-    <!-- http://joinedupdata.org/ontologies/philanthropy/application -->
+    <!-- http://joinedupdata.org/ontologies/philanthropy/applicationTransaction -->
 
-    <owl:ObjectProperty rdf:about="&philanthropy;application">
+    <owl:ObjectProperty rdf:about="&philanthropy;applicationTransaction">
         <rdfs:label xml:lang="en">Amount applied for</rdfs:label>
+        <fieldWeight>5.02</fieldWeight>
         <rdfs:domain rdf:resource="&philanthropy;FundingActivity"/>
         <rdfs:range rdf:resource="&philanthropy;Transaction"/>
         <rdfs:subPropertyOf rdf:resource="&philanthropy;transaction"/>
+        <totalUp rdf:resource="&philanthropy;value"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://joinedupdata.org/ontologies/philanthropy/beneficiaryLocation -->
+
+    <owl:ObjectProperty rdf:about="&philanthropy;beneficiaryLocation">
+        <rdfs:label xml:lang="en">Beneficiary Location</rdfs:label>
+        <fieldWeight>6.01</fieldWeight>
+        <rdfs:domain rdf:resource="&philanthropy;FundingActivity"/>
+        <rdfs:range rdf:resource="&philanthropy;Place"/>
+        <rollUp rdf:resource="&philanthropy;country"/>
+        <rollUp rdf:resource="&philanthropy;latitude"/>
+        <rdfs:subPropertyOf rdf:resource="&philanthropy;location"/>
+        <rollUp rdf:resource="&philanthropy;longitude"/>
+        <rollUp rdf:resource="&philanthropy;name"/>
     </owl:ObjectProperty>
     
 
@@ -94,20 +124,22 @@
     
 
 
-    <!-- http://joinedupdata.org/ontologies/philanthropy/commitment -->
+    <!-- http://joinedupdata.org/ontologies/philanthropy/commitmentTransaction -->
 
-    <owl:ObjectProperty rdf:about="&philanthropy;commitment">
+    <owl:ObjectProperty rdf:about="&philanthropy;commitmentTransaction">
         <rdfs:label xml:lang="en">Amount awarded</rdfs:label>
+        <fieldWeight>5.02</fieldWeight>
         <rdfs:domain rdf:resource="&philanthropy;FundingActivity"/>
         <rdfs:range rdf:resource="&philanthropy;Transaction"/>
         <rdfs:subPropertyOf rdf:resource="&philanthropy;transaction"/>
+        <totalUp rdf:resource="&philanthropy;value"/>
     </owl:ObjectProperty>
     
 
 
-    <!-- http://joinedupdata.org/ontologies/philanthropy/disbursement -->
+    <!-- http://joinedupdata.org/ontologies/philanthropy/disbursementTransaction -->
 
-    <owl:ObjectProperty rdf:about="&philanthropy;disbursement">
+    <owl:ObjectProperty rdf:about="&philanthropy;disbursementTransaction">
         <rdfs:label xml:lang="en">Amount paid out</rdfs:label>
         <rdfs:domain rdf:resource="&philanthropy;FundingActivity"/>
         <rdfs:range rdf:resource="&philanthropy;Transaction"/>
@@ -125,8 +157,12 @@
     <!-- http://joinedupdata.org/ontologies/philanthropy/fundingOrganization -->
 
     <owl:ObjectProperty rdf:about="&philanthropy;fundingOrganization">
+        <rdfs:label xml:lang="en">Funding Org</rdfs:label>
+        <fieldWeight>4</fieldWeight>
         <rdfs:domain rdf:resource="&philanthropy;Activity"/>
         <rdfs:range rdf:resource="&philanthropy;Organization"/>
+        <rollUp rdf:resource="&philanthropy;id"/>
+        <rollUp rdf:resource="&philanthropy;name"/>
         <rdfs:subPropertyOf rdf:resource="&philanthropy;organization"/>
     </owl:ObjectProperty>
     
@@ -143,18 +179,26 @@
     
 
 
-    <!-- http://joinedupdata.org/ontologies/philanthropy/grantID -->
+    <!-- http://joinedupdata.org/ontologies/philanthropy/gazeteerEntry -->
 
-    <owl:ObjectProperty rdf:about="&philanthropy;grantID">
-        <rdfs:label xml:lang="en">Grant ID</rdfs:label>
-        <fieldWeight>0</fieldWeight>
-        <rdfs:range rdf:resource="&philanthropy;Activity"/>
-        <rdfs:domain rdf:resource="&philanthropy;Document"/>
-        <rdfs:domain rdf:resource="&philanthropy;Event"/>
-        <rdfs:domain rdf:resource="&philanthropy;Measurement"/>
-        <rdfs:domain rdf:resource="&philanthropy;Organization"/>
+    <owl:ObjectProperty rdf:about="&philanthropy;gazeteerEntry">
+        <rdfs:label xml:lang="en">Gazeteer Entry</rdfs:label>
+        <rdfs:range rdf:resource="&philanthropy;Classification"/>
         <rdfs:domain rdf:resource="&philanthropy;Place"/>
-        <rdfs:domain rdf:resource="&philanthropy;Transaction"/>
+        <rdfs:subPropertyOf rdf:resource="&philanthropy;classifications"/>
+        <rollUp rdf:resource="&philanthropy;code"/>
+        <rollUp rdf:resource="&philanthropy;vocabulary"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://joinedupdata.org/ontologies/philanthropy/grantProgramme -->
+
+    <owl:ObjectProperty rdf:about="&philanthropy;grantProgramme">
+        <rdfs:label xml:lang="en">Grant Programme</rdfs:label>
+        <rdfs:range rdf:resource="&philanthropy;Classification"/>
+        <rdfs:domain rdf:resource="&philanthropy;Grant"/>
+        <rdfs:subPropertyOf rdf:resource="&philanthropy;classifications"/>
     </owl:ObjectProperty>
     
 
@@ -165,6 +209,17 @@
         <rdfs:domain rdf:resource="&philanthropy;Activity"/>
         <rdfs:domain rdf:resource="&philanthropy;Organization"/>
         <rdfs:range rdf:resource="&philanthropy;Place"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://joinedupdata.org/ontologies/philanthropy/organisationType -->
+
+    <owl:ObjectProperty rdf:about="&philanthropy;organisationType">
+        <rdfs:label xml:lang="en">Organisation Type</rdfs:label>
+        <rdfs:range rdf:resource="&philanthropy;Classification"/>
+        <rdfs:domain rdf:resource="&philanthropy;Organization"/>
+        <rdfs:subPropertyOf rdf:resource="&philanthropy;classifications"/>
     </owl:ObjectProperty>
     
 
@@ -188,9 +243,12 @@
     <!-- http://joinedupdata.org/ontologies/philanthropy/provider -->
 
     <owl:ObjectProperty rdf:about="&philanthropy;provider">
-        <rdfs:label xml:lang="en">Provider ID</rdfs:label>
+        <rdfs:label xml:lang="en">Provider</rdfs:label>
+        <fieldWeight>0.6</fieldWeight>
         <rdfs:range rdf:resource="&philanthropy;Organization"/>
         <rdfs:domain rdf:resource="&philanthropy;Transaction"/>
+        <rollUp rdf:resource="&philanthropy;id"/>
+        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
     </owl:ObjectProperty>
     
 
@@ -198,9 +256,11 @@
     <!-- http://joinedupdata.org/ontologies/philanthropy/recipient -->
 
     <owl:ObjectProperty rdf:about="&philanthropy;recipient">
-        <rdfs:label xml:lang="en">Recipient ID</rdfs:label>
+        <rdfs:label xml:lang="en">Recipient</rdfs:label>
+        <fieldWeight>0.7</fieldWeight>
         <rdfs:range rdf:resource="&philanthropy;Organization"/>
         <rdfs:domain rdf:resource="&philanthropy;Transaction"/>
+        <rollUp rdf:resource="&philanthropy;id"/>
     </owl:ObjectProperty>
     
 
@@ -208,9 +268,40 @@
     <!-- http://joinedupdata.org/ontologies/philanthropy/recipientOrganization -->
 
     <owl:ObjectProperty rdf:about="&philanthropy;recipientOrganization">
+        <rdfs:label xml:lang="en">Recipient Org</rdfs:label>
+        <fieldWeight>5</fieldWeight>
         <rdfs:domain rdf:resource="&philanthropy;Activity"/>
         <rdfs:range rdf:resource="&philanthropy;Organization"/>
+        <rollUp rdf:resource="&philanthropy;addressCountry"/>
+        <rollUp rdf:resource="&philanthropy;addressLocality"/>
+        <rollUp rdf:resource="&philanthropy;addressRegion"/>
+        <rollUp rdf:resource="&philanthropy;alternateName"/>
+        <rollUp rdf:resource="&philanthropy;description"/>
+        <rollUp rdf:resource="&philanthropy;id"/>
+        <rollUp rdf:resource="&philanthropy;name"/>
         <rdfs:subPropertyOf rdf:resource="&philanthropy;organization"/>
+        <rollUp rdf:resource="&philanthropy;streetAddress"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://joinedupdata.org/ontologies/philanthropy/relatedActivity -->
+
+    <owl:ObjectProperty rdf:about="&philanthropy;relatedActivity">
+        <rdfs:label xml:lang="en">Related Activity</rdfs:label>
+        <fieldWeight>15</fieldWeight>
+        <rdfs:range rdf:resource="&philanthropy;Activity"/>
+        <rdfs:domain rdf:resource="&philanthropy;Grant"/>
+        <rollUp rdf:resource="&philanthropy;id"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://joinedupdata.org/ontologies/philanthropy/theme -->
+
+    <owl:ObjectProperty rdf:about="&philanthropy;theme">
+        <rdfs:label xml:lang="en">Theme</rdfs:label>
+        <rdfs:subPropertyOf rdf:resource="&philanthropy;classifications"/>
     </owl:ObjectProperty>
     
 
@@ -231,14 +322,6 @@
     ///////////////////////////////////////////////////////////////////////////////////////
      -->
 
-    
-
-
-    <!-- http://joinedupdata.org/ontologies/philanthropy/activityID -->
-
-    <owl:DatatypeProperty rdf:about="&philanthropy;activityID">
-        <fieldWeight>0</fieldWeight>
-    </owl:DatatypeProperty>
     
 
 
@@ -290,13 +373,59 @@
     
 
 
+    <!-- http://joinedupdata.org/ontologies/philanthropy/charityNumber -->
+
+    <owl:DatatypeProperty rdf:about="&philanthropy;charityNumber">
+        <rdfs:label xml:lang="en">Charity Number</rdfs:label>
+        <fieldWeight>6.01</fieldWeight>
+        <rdfs:domain rdf:resource="&philanthropy;Organization"/>
+        <rdfs:range rdf:resource="&rdfs;Literal"/>
+    </owl:DatatypeProperty>
+    
+
+
     <!-- http://joinedupdata.org/ontologies/philanthropy/code -->
 
     <owl:DatatypeProperty rdf:about="&philanthropy;code">
         <rdfs:label xml:lang="en">Code</rdfs:label>
+        <fieldWeight>9</fieldWeight>
         <rdfs:domain rdf:resource="&philanthropy;Classification"/>
         <rdfs:range rdf:resource="&rdfs;Literal"/>
         <rdfs:range rdf:resource="&xsd;anyURI"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://joinedupdata.org/ontologies/philanthropy/companyNumber -->
+
+    <owl:DatatypeProperty rdf:about="&philanthropy;companyNumber">
+        <rdfs:label xml:lang="en">Company Number</rdfs:label>
+        <fieldWeight>6.02</fieldWeight>
+        <rdfs:domain rdf:resource="&philanthropy;Organization"/>
+        <rdfs:range rdf:resource="&rdfs;Literal"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://joinedupdata.org/ontologies/philanthropy/contactName -->
+
+    <owl:DatatypeProperty rdf:about="&philanthropy;contactName">
+        <rdfs:label xml:lang="en">Contact Name</rdfs:label>
+        <fieldWeight>2.0</fieldWeight>
+        <rdfs:domain rdf:resource="&philanthropy;Organization"/>
+        <rdfs:range rdf:resource="&rdfs;Literal"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://joinedupdata.org/ontologies/philanthropy/country -->
+
+    <owl:DatatypeProperty rdf:about="&philanthropy;country">
+        <rdfs:label xml:lang="en">Country</rdfs:label>
+        <fieldWeight>2</fieldWeight>
+        <rdfs:comment xml:lang="en">Should be a valid ISO Country code.</rdfs:comment>
+        <rdfs:domain rdf:resource="&philanthropy;Place"/>
+        <rdfs:range rdf:resource="&rdfs;Literal"/>
     </owl:DatatypeProperty>
     
 
@@ -305,6 +434,7 @@
 
     <owl:DatatypeProperty rdf:about="&philanthropy;currency">
         <rdfs:label xml:lang="en">Currency</rdfs:label>
+        <fieldWeight>5.02</fieldWeight>
         <rdfs:domain rdf:resource="&philanthropy;Activity"/>
         <rdfs:domain rdf:resource="&philanthropy;Transaction"/>
         <rdfs:range rdf:resource="&rdfs;Literal"/>
@@ -317,8 +447,9 @@
     <owl:DatatypeProperty rdf:about="&philanthropy;description">
         <rdfs:label xml:lang="en">Description</rdfs:label>
         <eGrantMapping>Description of Grantee Organization / Grant Description</eGrantMapping>
-        <fieldWeight>10</fieldWeight>
+        <fieldWeight>9</fieldWeight>
         <rdfs:domain rdf:resource="&philanthropy;Activity"/>
+        <rdfs:domain rdf:resource="&philanthropy;Classification"/>
         <rdfs:domain rdf:resource="&philanthropy;Document"/>
         <rdfs:domain rdf:resource="&philanthropy;Event"/>
         <rdfs:domain rdf:resource="&philanthropy;Measurement"/>
@@ -363,16 +494,49 @@
     
 
 
+    <!-- http://joinedupdata.org/ontologies/philanthropy/fromOpenCall -->
+
+    <owl:DatatypeProperty rdf:about="&philanthropy;fromOpenCall">
+        <rdfs:label xml:lang="en">From an open call?</rdfs:label>
+        <fieldWeight>12.0</fieldWeight>
+        <rdfs:domain rdf:resource="&philanthropy;Grant"/>
+        <rdfs:range rdf:resource="&xsd;boolean"/>
+    </owl:DatatypeProperty>
+    
+
+
     <!-- http://joinedupdata.org/ontologies/philanthropy/id -->
 
     <owl:DatatypeProperty rdf:about="&philanthropy;id">
         <rdfs:label xml:lang="en">Identifier</rdfs:label>
         <eGrantMapping>Unique Grant Number</eGrantMapping>
-        <fieldWeight>1</fieldWeight>
+        <fieldWeight>0.001</fieldWeight>
         <rdfs:domain rdf:resource="&philanthropy;Activity"/>
         <rdfs:domain rdf:resource="&philanthropy;Organization"/>
         <rdfs:domain rdf:resource="&philanthropy;Transaction"/>
         <rdfs:range rdf:resource="&rdfs;Literal"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://joinedupdata.org/ontologies/philanthropy/latitude -->
+
+    <owl:DatatypeProperty rdf:about="&philanthropy;latitude">
+        <rdfs:label xml:lang="en">Latitude</rdfs:label>
+        <fieldWeight>4.001</fieldWeight>
+        <rdfs:domain rdf:resource="&philanthropy;Place"/>
+        <rdfs:range rdf:resource="&xsd;float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://joinedupdata.org/ontologies/philanthropy/longitude -->
+
+    <owl:DatatypeProperty rdf:about="&philanthropy;longitude">
+        <rdfs:label xml:lang="en">Longitude</rdfs:label>
+        <fieldWeight>4.01</fieldWeight>
+        <rdfs:domain rdf:resource="&philanthropy;Place"/>
+        <rdfs:range rdf:resource="&xsd;float"/>
     </owl:DatatypeProperty>
     
 
@@ -382,12 +546,10 @@
     <owl:DatatypeProperty rdf:about="&philanthropy;name">
         <rdfs:label xml:lang="en">Name</rdfs:label>
         <fieldWeight>1.1</fieldWeight>
-        <rdfs:domain rdf:resource="&philanthropy;Activity"/>
         <rdfs:domain rdf:resource="&philanthropy;Classification"/>
-        <rdfs:domain rdf:resource="&philanthropy;Document"/>
-        <rdfs:domain rdf:resource="&philanthropy;Event"/>
         <rdfs:domain rdf:resource="&philanthropy;Organization"/>
         <rdfs:domain rdf:resource="&philanthropy;Place"/>
+        <owl:equivalentProperty rdf:resource="&philanthropy;title"/>
         <rdfs:range rdf:resource="&rdfs;Literal"/>
     </owl:DatatypeProperty>
     
@@ -439,6 +601,18 @@
     
 
 
+    <!-- http://joinedupdata.org/ontologies/philanthropy/title -->
+
+    <owl:DatatypeProperty rdf:about="&philanthropy;title">
+        <rdfs:label xml:lang="en">Title</rdfs:label>
+        <fieldWeight>1.05</fieldWeight>
+        <rdfs:domain rdf:resource="&philanthropy;Activity"/>
+        <rdfs:domain rdf:resource="&philanthropy;Event"/>
+        <rdfs:range rdf:resource="&rdfs;Literal"/>
+    </owl:DatatypeProperty>
+    
+
+
     <!-- http://joinedupdata.org/ontologies/philanthropy/transactionDate -->
 
     <owl:DatatypeProperty rdf:about="&philanthropy;transactionDate">
@@ -455,7 +629,7 @@
     <owl:DatatypeProperty rdf:about="&philanthropy;url">
         <rdfs:label xml:lang="en">Website</rdfs:label>
         <eGrantMapping>Grantee URL</eGrantMapping>
-        <fieldWeight>8</fieldWeight>
+        <fieldWeight>11.01</fieldWeight>
         <rdfs:domain rdf:resource="&philanthropy;Activity"/>
         <rdfs:domain rdf:resource="&philanthropy;Organization"/>
         <rdfs:range rdf:resource="&rdfs;Literal"/>
@@ -467,6 +641,7 @@
 
     <owl:DatatypeProperty rdf:about="&philanthropy;value">
         <rdfs:label xml:lang="en">Value</rdfs:label>
+        <fieldWeight>6</fieldWeight>
         <rdfs:domain rdf:resource="&philanthropy;Transaction"/>
         <rdfs:range rdf:resource="&xsd;float"/>
     </owl:DatatypeProperty>
@@ -477,7 +652,7 @@
 
     <owl:DatatypeProperty rdf:about="&philanthropy;valueDate">
         <rdfs:label xml:lang="en">Value date</rdfs:label>
-        <fieldWeight>10</fieldWeight>
+        <fieldWeight>6.1</fieldWeight>
         <rdfs:domain rdf:resource="&philanthropy;Transaction"/>
         <rdfs:range rdf:resource="&xsd;dateTime"/>
     </owl:DatatypeProperty>
@@ -488,6 +663,7 @@
 
     <owl:DatatypeProperty rdf:about="&philanthropy;vocabulary">
         <rdfs:label xml:lang="en">Vocabulary</rdfs:label>
+        <fieldWeight>8</fieldWeight>
         <rdfs:domain rdf:resource="&philanthropy;Classification"/>
         <rdfs:range rdf:resource="&rdfs;Literal"/>
         <rdfs:range rdf:resource="&xsd;anyURI"/>
@@ -519,7 +695,7 @@
     <!-- http://joinedupdata.org/ontologies/philanthropy/Classification -->
 
     <owl:Class rdf:about="&philanthropy;Classification">
-        <rdfs:label xml:lang="en">Classifications</rdfs:label>
+        <rdfs:label xml:lang="en">Classification</rdfs:label>
         <rdfs:subClassOf rdf:resource="&philanthropy;Thing"/>
     </owl:Class>
     

@@ -5,6 +5,7 @@ from rdflib import RDFS, OWL, XSD
 import json
 import xlwt
 import operator # Used in sorting
+from sets import Set
 
 def getName(uriRef):
     return str(uriRef).rpartition("/")[2] # Get last part of the URL (assumes slash based URLs)
@@ -40,6 +41,8 @@ def createFieldSpec(dataProperty):
         fieldSpec['values'] = 'Number (float)'
     elif ((dataProperty, RDFS.range, XSD.integer)) in g:
         fieldSpec['values'] = 'Number (integer)'
+    elif ((dataProperty, RDFS.range, XSD.boolean)) in g:
+        fieldSpec['values'] = 'Yes/No'
     else:
         fieldSpec['entity'] = g.value(dataProperty, RDFS.range)
         fieldSpec['values'] = 'Entity'
@@ -73,23 +76,30 @@ def generateModel(subjectEntity, depth, output = {}):
         if(depth > 1):
             for relationship in g.subjects(predicate=RDFS.range,object=subjectOrParent):   
                 topTable = getTopClass(g.value(relationship,RDFS.domain))
-                fieldSpec = {}
-                fieldSpec['name'] = topTable + ".id"
-                fieldSpec['title'] = topTable + " ID"
-                fieldSpec['value'] = "Reference"
-                fieldSpec['weight'] = 0.5
-                output[tableName][fieldSpec['name']] = fieldSpec
+                if(not(topTable == tableName)): # Handle for recursive relationships (e.g. Related Activity)
+                    fieldSpec = {}
+                    fieldSpec['name'] = topTable + ".id"
+                    fieldSpec['title'] = topTable + " ID"
+                    fieldSpec['values'] = "Reference"
+                    fieldSpec['weight'] = 0.5
+                    output[tableName][fieldSpec['name']] = fieldSpec
                 
-                fieldSpec = {}
-                fieldSpec['name'] = tableName.lower()+"Type"
-                fieldSpec['title'] = tableName +" Type"
-                fieldSpec['weight'] = float(0)
-                try:
-                    #ToDo - fix the way this works
-                    fieldSpec['values'] = output[tableName][fieldSpec['name']]['values'] + ", " + getName(relationship)
-                except:
-                    fieldSpec['values'] = getName(relationship)
-                output[tableName][fieldSpec['name']] = fieldSpec
+                
+                
+                    fieldSpec = {}
+                    fieldSpec['name'] = tableName.lower()+"Type"
+                    fieldSpec['title'] = tableName +" Type"
+                    fieldSpec['weight'] = float(0)
+                    output[tableName][tableName.lower()+"Type"] = fieldSpec
+
+                    # ToDo: Fix this - not working right now (should help us generate a list of valid values for each Type column)
+                    try:
+                        output[tableName][tableName.lower()+"Type"]['values'].update([getName(relationship)])
+                    except Exception as e:
+                        output[tableName][tableName.lower()+"Type"]['values'] = Set([getName(relationship)])
+                        pass
+                
+                    output[tableName][tableName.lower()+"Type"] = fieldSpec
             
         for dataProperty in g.subjects(predicate=RDFS.domain,object=subjectOrParent):
             #Set up the field specification
@@ -105,7 +115,7 @@ def generateModel(subjectEntity, depth, output = {}):
                     fieldSpec = createFieldSpec(rollUp) # Set up a field specification, then overwrite what we need to
                     fieldSpec['name'] = getName(dataProperty) + "." + fieldSpec['name']
                     fieldSpec['title'] = str(g.preferredLabel(dataProperty,"en")[0][1]) + ":" + fieldSpec['title']
-                    fieldSpec['weight'] = float(str(fieldSpec['weight']) + str(g.value(rollUp,OPDS.fieldWeight,default=5)).replace('.',''))
+                    fieldSpec['weight'] = float(str(float(g.value(dataProperty,OPDS.fieldWeight,default=0.0))) + str(fieldSpec['weight']).replace('.',''))
                     output[tableName][fieldSpec['name']] = fieldSpec
                 
                 # Total Ups
@@ -113,7 +123,7 @@ def generateModel(subjectEntity, depth, output = {}):
                     fieldSpec = createFieldSpec(dataProperty) # Set up a field specification, then overwrite what we need to
                     fieldSpec['name'] = "sum("+fieldSpec['name']+ ")"
                     fieldSpec['title'] = "Total " + fieldSpec['title'] #Needs I8LN
-                    fieldSpec['weight'] = float(str(fieldSpec['weight']) + str(g.value(totalUp,OPDS.fieldWeight,default=5)).replace('.',''))
+                    fieldSpec['weight'] = float(str(float(g.value(dataProperty,OPDS.fieldWeight,default=0.0))) + str(fieldSpec['weight']).replace('.',''))
                         
                     output[tableName][fieldSpec['name']] = fieldSpec
                 
@@ -154,6 +164,14 @@ for table in sorted(model):
         sheet.write(0,c,label=model[table][col[0]]['title'])
         sheet.write(1,c,label=model[table][col[0]]['name'])
         sheet.write(2,c,label=model[table][col[0]]['weight'])
+        try:
+            sheet.write(3,c,label=model[table][col[0]]['values'])
+        except:
+            try:
+                #print model[table][col[0]]['values']
+                pass
+            except:
+                pass
         c = c + 1
 spreadsheet.save("template.xls")
 

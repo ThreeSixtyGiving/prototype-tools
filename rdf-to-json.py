@@ -18,7 +18,7 @@ g.namespace_manager.bind('opds', URIRef('http://joinedupdata.org/ontologies/phil
 g.load('DraftOntology0.1.rdf')
 
 #Loop through all the available defaultSubjects
-def generateModel(subjectEntity, depth):
+def generateModel(subjectEntity, depth, parent = ""):
     
     output = {}
     # Check if subject exists
@@ -42,7 +42,7 @@ def generateModel(subjectEntity, depth):
                 for subObject in g.objects(subject=dataProperty,predicate=RDFS.range):  
                     # We want to avoid deep nesting, so whenever we get more levels deep we should use an indentifier 
                     if depth < 2:
-                        output[subject].update({getName(dataProperty): generateModel(subObject,depth+1)})
+                        output[subject].update({getName(dataProperty): generateModel(subObject,depth+1,subject)})
                     else:
                         output[subject].update({getName(dataProperty): ''})
                     pass
