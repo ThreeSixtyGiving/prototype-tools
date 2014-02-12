@@ -160,7 +160,7 @@
         <rdfs:label xml:lang="en">Funding Org</rdfs:label>
         <fieldWeight>4</fieldWeight>
         <rdfs:domain rdf:resource="&philanthropy;Activity"/>
-        <rdfs:range rdf:resource="&philanthropy;Organization"/>
+        <rdfs:range rdf:resource="&philanthropy;FundingOrganization"/>
         <rollUp rdf:resource="&philanthropy;id"/>
         <rollUp rdf:resource="&philanthropy;name"/>
         <rdfs:subPropertyOf rdf:resource="&philanthropy;organization"/>
@@ -271,7 +271,7 @@
         <rdfs:label xml:lang="en">Recipient Org</rdfs:label>
         <fieldWeight>5</fieldWeight>
         <rdfs:domain rdf:resource="&philanthropy;Activity"/>
-        <rdfs:range rdf:resource="&philanthropy;Organization"/>
+        <rdfs:range rdf:resource="&philanthropy;RecipientOrganization"/>
         <rollUp rdf:resource="&philanthropy;addressCountry"/>
         <rollUp rdf:resource="&philanthropy;addressLocality"/>
         <rollUp rdf:resource="&philanthropy;addressRegion"/>
@@ -723,7 +723,17 @@
     <!-- http://joinedupdata.org/ontologies/philanthropy/FundingActivity -->
 
     <owl:Class rdf:about="&philanthropy;FundingActivity">
+        <rdfs:label xml:lang="en">An activity is a container for a series of events. Commonly activities take the form of &apos;Projects&apos;.</rdfs:label>
         <rdfs:subClassOf rdf:resource="&philanthropy;Activity"/>
+    </owl:Class>
+    
+
+
+    <!-- http://joinedupdata.org/ontologies/philanthropy/FundingOrganization -->
+
+    <owl:Class rdf:about="&philanthropy;FundingOrganization">
+        <rdfs:label xml:lang="en">Funding Organisation</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&philanthropy;Organization"/>
     </owl:Class>
     
 
@@ -770,6 +780,16 @@
     <owl:Class rdf:about="&philanthropy;Place">
         <rdfs:label xml:lang="en">Location</rdfs:label>
         <rdfs:subClassOf rdf:resource="&philanthropy;Thing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://joinedupdata.org/ontologies/philanthropy/RecipientOrganization -->
+
+    <owl:Class rdf:about="&philanthropy;RecipientOrganization">
+        <rdfs:label xml:lang="en">Recipient Organisation
+</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&philanthropy;Organization"/>
     </owl:Class>
     
 
