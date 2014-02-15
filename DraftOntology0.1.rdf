@@ -233,9 +233,14 @@
     <!-- http://joinedupdata.org/ontologies/philanthropy/plannedDates -->
 
     <owl:ObjectProperty rdf:about="&philanthropy;plannedDates">
+        <rdfs:label xml:lang="en">Planned Dates</rdfs:label>
+        <fieldWeight xml:lang="en">5.031</fieldWeight>
         <rdfs:domain rdf:resource="&philanthropy;Activity"/>
         <rdfs:range rdf:resource="&philanthropy;Event"/>
+        <rollUp rdf:resource="&philanthropy;duration"/>
+        <rollUp rdf:resource="&philanthropy;endDate"/>
         <rdfs:subPropertyOf rdf:resource="&philanthropy;event"/>
+        <rollUp rdf:resource="&philanthropy;startDate"/>
     </owl:ObjectProperty>
     
 
@@ -280,6 +285,7 @@
         <rollUp rdf:resource="&philanthropy;id"/>
         <rollUp rdf:resource="&philanthropy;name"/>
         <rdfs:subPropertyOf rdf:resource="&philanthropy;organization"/>
+        <rollUp rdf:resource="&philanthropy;postalCode"/>
         <rollUp rdf:resource="&philanthropy;streetAddress"/>
     </owl:ObjectProperty>
     
@@ -418,10 +424,10 @@
     
 
 
-    <!-- http://joinedupdata.org/ontologies/philanthropy/country -->
+    <!-- http://joinedupdata.org/ontologies/philanthropy/countryCode -->
 
-    <owl:DatatypeProperty rdf:about="&philanthropy;country">
-        <rdfs:label xml:lang="en">Country</rdfs:label>
+    <owl:DatatypeProperty rdf:about="&philanthropy;countryCode">
+        <rdfs:label xml:lang="en">Country Code</rdfs:label>
         <fieldWeight>2</fieldWeight>
         <rdfs:comment xml:lang="en">Should be a valid ISO Country code.</rdfs:comment>
         <rdfs:domain rdf:resource="&philanthropy;Place"/>
@@ -438,6 +444,24 @@
         <rdfs:domain rdf:resource="&philanthropy;Activity"/>
         <rdfs:domain rdf:resource="&philanthropy;Transaction"/>
         <rdfs:range rdf:resource="&rdfs;Literal"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://joinedupdata.org/ontologies/philanthropy/dateModified -->
+
+    <owl:DatatypeProperty rdf:about="&philanthropy;dateModified">
+        <rdfs:label xml:lang="en">Last modified</rdfs:label>
+        <fieldWeight>25</fieldWeight>
+        <rdfs:domain rdf:resource="&philanthropy;Activity"/>
+        <rdfs:domain rdf:resource="&philanthropy;Classification"/>
+        <rdfs:domain rdf:resource="&philanthropy;Document"/>
+        <rdfs:domain rdf:resource="&philanthropy;Event"/>
+        <rdfs:domain rdf:resource="&philanthropy;Measurement"/>
+        <rdfs:domain rdf:resource="&philanthropy;Organization"/>
+        <rdfs:domain rdf:resource="&philanthropy;Place"/>
+        <rdfs:domain rdf:resource="&philanthropy;Transaction"/>
+        <rdfs:range rdf:resource="&xsd;dateTime"/>
     </owl:DatatypeProperty>
     
 
@@ -687,7 +711,17 @@
     <owl:Class rdf:about="&philanthropy;Activity">
         <rdfs:label xml:lang="en">Activity</rdfs:label>
         <rdfs:subClassOf rdf:resource="&philanthropy;Thing"/>
-        <rdfs:comment xml:lang="en">An activity is a container for a series of events. Commonly activities take the form of &apos;Projects&apos;.</rdfs:comment>
+        <fieldWeight>1</fieldWeight>
+        <rdfs:comment xml:lang="en">An activity is something that can be reported on through this standard. Activities can be grants, aid projects, investments or many other kinds of projects or collections of people, places and events which someone may wish to describe. </rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://joinedupdata.org/ontologies/philanthropy/ActualDates -->
+
+    <owl:Class rdf:about="&philanthropy;ActualDates">
+        <rdfs:label xml:lang="en">Actual Dates</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&philanthropy;Event"/>
     </owl:Class>
     
 
@@ -697,6 +731,8 @@
     <owl:Class rdf:about="&philanthropy;Classification">
         <rdfs:label xml:lang="en">Classification</rdfs:label>
         <rdfs:subClassOf rdf:resource="&philanthropy;Thing"/>
+        <fieldWeight>5</fieldWeight>
+        <rdfs:comment xml:lang="en">A classification is used to describe an activity, document, transaction, organisation or other building block, usually using some pre-defined list of categories or tags. Classifications have code values and a vocabulary (which determines the &apos;code list&apos; that code values should be found on). They may also include text descriptions and notes about the classification.</rdfs:comment>
     </owl:Class>
     
 
@@ -706,6 +742,8 @@
     <owl:Class rdf:about="&philanthropy;Document">
         <rdfs:label xml:lang="en">Documents</rdfs:label>
         <rdfs:subClassOf rdf:resource="&philanthropy;Thing"/>
+        <fieldWeight>6</fieldWeight>
+        <rdfs:comment xml:lang="en">Documents can be attached to activities and other building blocks to provide more information. </rdfs:comment>
     </owl:Class>
     
 
@@ -715,7 +753,8 @@
     <owl:Class rdf:about="&philanthropy;Event">
         <rdfs:label xml:lang="en">Event</rdfs:label>
         <rdfs:subClassOf rdf:resource="&philanthropy;Thing"/>
-        <rdfs:comment xml:lang="en">An occurence in the lifetime of an activity.</rdfs:comment>
+        <fieldWeight>2.5</fieldWeight>
+        <rdfs:comment xml:lang="en">An event is an occurence in the lifetime of an activity. This might be a start or end date, or some other key moment. </rdfs:comment>
     </owl:Class>
     
 
@@ -723,8 +762,9 @@
     <!-- http://joinedupdata.org/ontologies/philanthropy/FundingActivity -->
 
     <owl:Class rdf:about="&philanthropy;FundingActivity">
-        <rdfs:label xml:lang="en">An activity is a container for a series of events. Commonly activities take the form of &apos;Projects&apos;.</rdfs:label>
+        <rdfs:label xml:lang="en">Funding Activity</rdfs:label>
         <rdfs:subClassOf rdf:resource="&philanthropy;Activity"/>
+        <rdfs:comment xml:lang="en">A funding activity is any kind of activity that involves the transfer of funds between parties. </rdfs:comment>
     </owl:Class>
     
 
@@ -762,6 +802,8 @@
     <owl:Class rdf:about="&philanthropy;Measurement">
         <rdfs:label xml:lang="en">Results</rdfs:label>
         <rdfs:subClassOf rdf:resource="&philanthropy;Thing"/>
+        <fieldWeight>8</fieldWeight>
+        <rdfs:comment xml:lang="en">Measurements are used to outline the targets an activity is intended to achieve, and/or the outputs and outcomes it has achieved.</rdfs:comment>
     </owl:Class>
     
 
@@ -771,6 +813,8 @@
     <owl:Class rdf:about="&philanthropy;Organization">
         <rdfs:label xml:lang="en">Organization</rdfs:label>
         <rdfs:subClassOf rdf:resource="&philanthropy;Thing"/>
+        <fieldWeight>2</fieldWeight>
+        <rdfs:comment xml:lang="en">Organizations are involved in activities and transactions. Organizations can have contact details, descriptions, classifications and identifiers. </rdfs:comment>
     </owl:Class>
     
 
@@ -780,6 +824,17 @@
     <owl:Class rdf:about="&philanthropy;Place">
         <rdfs:label xml:lang="en">Location</rdfs:label>
         <rdfs:subClassOf rdf:resource="&philanthropy;Thing"/>
+        <fieldWeight>3</fieldWeight>
+        <rdfs:comment xml:lang="en">Locations can be mapped using latitute and longitude, information suitable for geocoding, or a gazeteer entry. </rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://joinedupdata.org/ontologies/philanthropy/PlannedDates -->
+
+    <owl:Class rdf:about="&philanthropy;PlannedDates">
+        <rdfs:label xml:lang="en">Planned Dates</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&philanthropy;Event"/>
     </owl:Class>
     
 
@@ -814,6 +869,8 @@
     <owl:Class rdf:about="&philanthropy;Transaction">
         <rdfs:label xml:lang="en">Transaction</rdfs:label>
         <rdfs:subClassOf rdf:resource="&philanthropy;Thing"/>
+        <fieldWeight>4</fieldWeight>
+        <rdfs:comment xml:lang="en">A transactions may be attached to an activity, and have a date, type, currency and value. Transactions may be commitments to fund an activity, disbursements of funding, or any other kind of financial transaction. </rdfs:comment>
     </owl:Class>
 </rdf:RDF>
 
