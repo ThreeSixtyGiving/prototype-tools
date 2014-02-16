@@ -9,7 +9,7 @@ from genmodel import generateModel
 
 model = generateModel("http://joinedupdata.org/ontologies/philanthropy/Grant",1,{})
 
-print model
+
 
 ## Write it out to a spreadsheet
 spreadsheet = xlwt.Workbook(encoding='ascii')
@@ -21,7 +21,8 @@ for table in sorted(model):
 
     #Dictionary sorting work-around
     for col in model[table]:
-        cols.append((col,model[table][col]["weight"]))
+        if(not(col == '_meta')):
+            cols.append((col,model[table][col]["weight"]))
     cols = sorted(cols,key=lambda x: x[1])
     
     for col in cols:

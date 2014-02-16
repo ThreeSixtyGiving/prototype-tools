@@ -78,6 +78,8 @@
     <!-- http://joinedupdata.org/ontologies/philanthropy/actualDates -->
 
     <owl:ObjectProperty rdf:about="&philanthropy;actualDates">
+        <rdfs:label xml:lang="en">Actual dates</rdfs:label>
+        <fieldWeight>5.041</fieldWeight>
         <rdfs:domain rdf:resource="&philanthropy;Activity"/>
         <rdfs:range rdf:resource="&philanthropy;Event"/>
         <rdfs:subPropertyOf rdf:resource="&philanthropy;event"/>
@@ -90,8 +92,8 @@
     <owl:ObjectProperty rdf:about="&philanthropy;applicationTransaction">
         <rdfs:label xml:lang="en">Amount applied for</rdfs:label>
         <fieldWeight>5.02</fieldWeight>
+        <rdfs:range rdf:resource="&philanthropy;Application"/>
         <rdfs:domain rdf:resource="&philanthropy;FundingActivity"/>
-        <rdfs:range rdf:resource="&philanthropy;Transaction"/>
         <rdfs:subPropertyOf rdf:resource="&philanthropy;transaction"/>
         <totalUp rdf:resource="&philanthropy;value"/>
     </owl:ObjectProperty>
@@ -129,8 +131,8 @@
     <owl:ObjectProperty rdf:about="&philanthropy;commitmentTransaction">
         <rdfs:label xml:lang="en">Amount awarded</rdfs:label>
         <fieldWeight>5.02</fieldWeight>
+        <rdfs:range rdf:resource="&philanthropy;Commitment"/>
         <rdfs:domain rdf:resource="&philanthropy;FundingActivity"/>
-        <rdfs:range rdf:resource="&philanthropy;Transaction"/>
         <rdfs:subPropertyOf rdf:resource="&philanthropy;transaction"/>
         <totalUp rdf:resource="&philanthropy;value"/>
     </owl:ObjectProperty>
@@ -141,8 +143,8 @@
 
     <owl:ObjectProperty rdf:about="&philanthropy;disbursementTransaction">
         <rdfs:label xml:lang="en">Amount paid out</rdfs:label>
+        <rdfs:range rdf:resource="&philanthropy;Disbursement"/>
         <rdfs:domain rdf:resource="&philanthropy;FundingActivity"/>
-        <rdfs:range rdf:resource="&philanthropy;Transaction"/>
         <rdfs:subPropertyOf rdf:resource="&philanthropy;transaction"/>
     </owl:ObjectProperty>
     
@@ -206,7 +208,6 @@
     <!-- http://joinedupdata.org/ontologies/philanthropy/location -->
 
     <owl:ObjectProperty rdf:about="&philanthropy;location">
-        <rdfs:domain rdf:resource="&philanthropy;Activity"/>
         <rdfs:domain rdf:resource="&philanthropy;Organization"/>
         <rdfs:range rdf:resource="&philanthropy;Place"/>
     </owl:ObjectProperty>
@@ -726,6 +727,16 @@
     
 
 
+    <!-- http://joinedupdata.org/ontologies/philanthropy/Application -->
+
+    <owl:Class rdf:about="&philanthropy;Application">
+        <rdfs:label xml:lang="en">Application</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&philanthropy;Transaction"/>
+        <rdfs:comment xml:lang="en">An amount applied for</rdfs:comment>
+    </owl:Class>
+    
+
+
     <!-- http://joinedupdata.org/ontologies/philanthropy/Classification -->
 
     <owl:Class rdf:about="&philanthropy;Classification">
@@ -733,6 +744,26 @@
         <rdfs:subClassOf rdf:resource="&philanthropy;Thing"/>
         <fieldWeight>5</fieldWeight>
         <rdfs:comment xml:lang="en">A classification is used to describe an activity, document, transaction, organisation or other building block, usually using some pre-defined list of categories or tags. Classifications have code values and a vocabulary (which determines the &apos;code list&apos; that code values should be found on). They may also include text descriptions and notes about the classification.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://joinedupdata.org/ontologies/philanthropy/Commitment -->
+
+    <owl:Class rdf:about="&philanthropy;Commitment">
+        <rdfs:label xml:lang="en">Commitment</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&philanthropy;Transaction"/>
+        <rdfs:comment xml:lang="en">The amount awarded to or commited to some party. </rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://joinedupdata.org/ontologies/philanthropy/Disbursement -->
+
+    <owl:Class rdf:about="&philanthropy;Disbursement">
+        <rdfs:label xml:lang="en">Disbursement</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&philanthropy;Transaction"/>
+        <rdfs:comment xml:lang="en">The amount transferred to some party. </rdfs:comment>
     </owl:Class>
     
 
