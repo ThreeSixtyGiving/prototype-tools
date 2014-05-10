@@ -251,7 +251,7 @@
         <rdfs:label xml:lang="en">Planned Dates</rdfs:label>
         <fieldWeight xml:lang="en">5.55</fieldWeight>
         <rdfs:domain rdf:resource="&philanthropy;Activity"/>
-        <rdfs:range rdf:resource="&philanthropy;PlannedDates"/>
+        <rdfs:range rdf:resource="&philanthropy;Event"/>
         <rollUp rdf:resource="&philanthropy;duration"/>
         <rollUp rdf:resource="&philanthropy;endDate"/>
         <rdfs:subPropertyOf rdf:resource="&philanthropy;event"/>
@@ -311,8 +311,8 @@
     <owl:ObjectProperty rdf:about="&philanthropy;relatedActivity">
         <rdfs:label xml:lang="en">Related Activity</rdfs:label>
         <fieldWeight>15</fieldWeight>
-        <rdfs:domain rdf:resource="&philanthropy;Activity"/>
         <rdfs:range rdf:resource="&philanthropy;Activity"/>
+        <rdfs:domain rdf:resource="&philanthropy;Grant"/>
         <rollUp rdf:resource="&philanthropy;id"/>
     </owl:ObjectProperty>
     

@@ -14,7 +14,7 @@ OPDS = rdflib.Namespace('http://joinedupdata.org/ontologies/philanthropy/')
 g.namespace_manager.bind('opds', URIRef('http://joinedupdata.org/ontologies/philanthropy/'))
 
 #Load the data
-g.load('DraftOntology0.1.rdf')
+g.load('ontology/360Giving.v0.2.rdf')
 
 def getName(uriRef):
     return str(uriRef).rpartition("/")[2] # Get last part of the URL (assumes slash based URLs)
@@ -51,7 +51,7 @@ def createFieldSpec(dataProperty):
 
 def getTopClass(entity):
     for subjectOrParent in g.transitive_objects(entity,RDFS.subClassOf):
-        if(subjectOrParent == OPDS.Thing):
+        if(subjectOrParent == OWL.Thing): # Updated to OWL.Thing in updated model (was ODPS.Thing)
             break #When we get to 'Thing' we want to go no further.
         tableName = g.preferredLabel(subjectOrParent,defaultLanguage)
         tableEntity = subjectOrParent
@@ -60,6 +60,8 @@ def getTopClass(entity):
     return (tableEntity, tableName)
 
 #Loop through all the available defaultSubjects
+# 
+
 def generateModel(subjectEntity, depth, output = {},rollUps = True):
     subjectEntity = URIRef(subjectEntity) 
 
@@ -86,27 +88,28 @@ def generateModel(subjectEntity, depth, output = {},rollUps = True):
     for subjectOrParent in g.transitive_objects(subjectEntity,RDFS.subClassOf): 
         if(depth > 1):
             for relationship in g.subjects(predicate=RDFS.range,object=subjectOrParent):   
-                topTable = getTopClass(g.value(relationship,RDFS.domain))[1]
-                if(not(topTable == tableName)): # Handle for recursive relationships (e.g. Related Activity)
-                    fieldSpec = {}
-                    fieldSpec['name'] = topTable + ".id"
-                    fieldSpec['title'] = topTable + " ID"
-                    fieldSpec['values'] = "Reference"
-                    fieldSpec['description'] = "The identifier of a related " + topTable + " (optional)"
-                    fieldSpec['weight'] = 0.5
-                    output[tableName][fieldSpec['name']] = fieldSpec
+                for domain in g.objects(relationship,RDFS.domain):                  
+                    topTable = getTopClass(domain)[1]
+                    if(not(topTable == tableName)): # Handle for recursive relationships (e.g. Related Activity)
+                        fieldSpec = {}
+                        fieldSpec['name'] = topTable + ".id"
+                        fieldSpec['title'] = topTable + " ID"
+                        fieldSpec['values'] = "Reference"
+                        fieldSpec['description'] = "The identifier of a related " + topTable + " (optional)"
+                        fieldSpec['weight'] = 0.5
+                        output[tableName][fieldSpec['name']] = fieldSpec
                 
-                    fieldSpec = {}
-                    # fieldSpec['name'] = tableName.lower()+"Type"
-                    # fieldSpec['title'] = tableName +" Type"
-                    fieldSpec['name'] = "relationshipType"
-                    fieldSpec['title'] = "Relationship Type"
-                    fieldSpec['values'] = "Reference"
-                    fieldSpec['description'] = "One of: " + ", ".join(output[tableName]['_meta']['relationships'])
-                    fieldSpec['weight'] = float(0.55)
-                    output[tableName][tableName.lower()+"Type"] = fieldSpec
+                        fieldSpec = {}
+                        # fieldSpec['name'] = tableName.lower()+"Type"
+                        # fieldSpec['title'] = tableName +" Type"
+                        fieldSpec['name'] = "relationshipType"
+                        fieldSpec['title'] = "Relationship Type"
+                        fieldSpec['values'] = "Reference"
+                        fieldSpec['description'] = "One of: " + ", ".join(output[tableName]['_meta']['relationships'])
+                        fieldSpec['weight'] = float(0.55)
+                        output[tableName][tableName.lower()+"Type"] = fieldSpec
                 
-                    output[tableName][tableName.lower()+"Type"] = fieldSpec
+                        output[tableName][tableName.lower()+"Type"] = fieldSpec
             
         for dataProperty in g.subjects(predicate=RDFS.domain,object=subjectOrParent):
             #Set up the field specification
@@ -137,16 +140,18 @@ def generateModel(subjectEntity, depth, output = {},rollUps = True):
                 
                 # For related objects
                 for subObject in g.objects(subject=dataProperty,predicate=RDFS.range): 
+                    
+                    
+                    #Add some extra information for the documentation output
+                    output[tableName]['_meta']['related'][getName(dataProperty)] = {"relationshipName":getName(dataProperty), "objectName":getName(subObject), "topObject":getTopClass(subObject)[1], "description":g.value(dataProperty,RDFS.comment,default="-"), "title":g.value(dataProperty,RDFS.label,default="-")}
+                    
                     if depth < 2:                            
                         subObjectModel = generateModel(subObject,depth+1,output,rollUps)
                         subObjectType = subObjectModel.keys()[0]
                         
                     else:
                         pass
-                    
-                    #Add some extra information for the documentation output
-                    if(not(rollUps)):
-                        output[tableName]['_meta']['related'][getName(dataProperty)] = {"relationshipName":getName(dataProperty), "objectName":getName(subObject), "topObject":getTopClass(subObject)[1], "description":g.value(dataProperty,RDFS.comment,default="-"), "title":g.value(dataProperty,RDFS.label,default="-")}
+                   
                     
 
     # Sort        

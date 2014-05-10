@@ -2,6 +2,10 @@
 
 The following rules are put forward for translating between flat and structured serialisations.
 
+### Identity schemes
+
+Each class hierarchy should have its own identifier scheme. 
+
 ### Roll Ups
 
 Any one-to-one property of an entity related to a table can be placed in that table using the syntax "'Relationship Name' : 'Property Name'". 
@@ -11,6 +15,8 @@ Any one-to-one property of an entity related to a table can be placed in that ta
 Aggregates values. 
 
 If the value has a currency, then only aggregate in the default currency.
+
+### Identifiers 
 
 
 
