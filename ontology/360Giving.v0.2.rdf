@@ -5,7 +5,6 @@
     <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
     <!ENTITY dc "http://purl.org/dc/elements/1.1/" >
     <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
-    <!ENTITY xml "http://www.w3.org/XML/1998/namespace" >
     <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
     <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
     <!ENTITY philanthropy "http://joinedupdata.org/ontologies/philanthropy/" >
@@ -19,8 +18,7 @@
      xmlns:philanthropy="http://joinedupdata.org/ontologies/philanthropy/"
      xmlns:owl="http://www.w3.org/2002/07/owl#"
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
-     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-     xmlns:xml="http://www.w3.org/XML/1998/namespace">
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
     <owl:Ontology rdf:about="http://joinedupdata.org/ontologies/philanthropy/">
         <owl:versionIRI rdf:resource="&philanthropy;0.1"/>
     </owl:Ontology>
@@ -144,7 +142,7 @@
         <rdfs:label xml:lang="en">Actual dates</rdfs:label>
         <fieldWeight>5.041</fieldWeight>
         <rdfs:domain rdf:resource="&philanthropy;Activity"/>
-        <rdfs:range rdf:resource="&philanthropy;Event"/>
+        <rdfs:range rdf:resource="&philanthropy;ActualDates"/>
         <rdfs:subPropertyOf rdf:resource="&philanthropy;event"/>
     </owl:ObjectProperty>
     
@@ -339,7 +337,7 @@
         <rdfs:label xml:lang="en">Planned Dates</rdfs:label>
         <fieldWeight xml:lang="en">5.55</fieldWeight>
         <rdfs:domain rdf:resource="&philanthropy;Activity"/>
-        <rdfs:range rdf:resource="&philanthropy;Event"/>
+        <rdfs:range rdf:resource="&philanthropy;PlannedDates"/>
         <rollUp rdf:resource="&philanthropy;duration"/>
         <rollUp rdf:resource="&philanthropy;endDate"/>
         <rdfs:subPropertyOf rdf:resource="&philanthropy;event"/>
@@ -611,6 +609,7 @@
     <owl:DatatypeProperty rdf:about="&philanthropy;duration">
         <rdfs:label xml:lang="en">Duration (months)</rdfs:label>
         <fieldWeight>4.2</fieldWeight>
+        <rdfs:comment xml:lang="en">Events lasting more than one day should have either a duration (in days) or an end date.</rdfs:comment>
         <rdfs:domain rdf:resource="&philanthropy;Event"/>
         <rdfs:range rdf:resource="&rdfs;Literal"/>
     </owl:DatatypeProperty>
@@ -633,6 +632,9 @@
     <owl:DatatypeProperty rdf:about="&philanthropy;endDate">
         <rdfs:label xml:lang="en">End Date</rdfs:label>
         <fieldWeight>4.3</fieldWeight>
+        <rdfs:comment xml:lang="en">Dates should be in YYYY-MM-DD format. If only a month or day are not available, these may be omitted.
+
+Events lasting more than one day should have either a duration (in days) or an end date.</rdfs:comment>
         <rdfs:domain rdf:resource="&philanthropy;Event"/>
         <rdfs:range rdf:resource="&xsd;dateTime"/>
     </owl:DatatypeProperty>
@@ -709,6 +711,9 @@
     <owl:DatatypeProperty rdf:about="&philanthropy;startDate">
         <rdfs:label xml:lang="en">Start Date</rdfs:label>
         <fieldWeight>4.1</fieldWeight>
+        <rdfs:comment xml:lang="en">Dates should be in YYYY-MM-DD format. If only a month or day are not available, these may be omitted.
+
+The start date of an event. At a minimum events must have a start date. </rdfs:comment>
         <rdfs:domain rdf:resource="&philanthropy;Event"/>
         <rdfs:range rdf:resource="&xsd;dateTime"/>
     </owl:DatatypeProperty>
