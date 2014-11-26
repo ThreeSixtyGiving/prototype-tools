@@ -308,6 +308,7 @@
     <!-- http://joinedupdata.org/ontologies/philanthropy/location -->
 
     <owl:ObjectProperty rdf:about="&philanthropy;location">
+        <rdfs:label xml:lang="en">Location</rdfs:label>
         <rdfs:domain rdf:resource="&philanthropy;Organization"/>
         <rdfs:range rdf:resource="&philanthropy;Place"/>
     </owl:ObjectProperty>
@@ -658,6 +659,7 @@ Events lasting more than one day should have either a duration (in days) or an e
         <rdfs:label xml:lang="en">Identifier</rdfs:label>
         <eGrantMapping>Unique Grant Number</eGrantMapping>
         <fieldWeight>0.001</fieldWeight>
+        <rdfs:comment xml:lang="en">Identifier</rdfs:comment>
         <rdfs:domain rdf:resource="&philanthropy;Activity"/>
         <rdfs:domain rdf:resource="&philanthropy;Document"/>
         <rdfs:domain rdf:resource="&philanthropy;Organization"/>

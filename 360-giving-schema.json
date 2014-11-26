@@ -1,0 +1,671 @@
+{
+  "definitions": {
+    "Transaction": {
+      "definitions": {},
+      "type": "object",
+      "properties": {
+        "currency": {
+          "type": "string",
+          "description": "-",
+          "weight": 5.02,
+          "title": "Currency"
+        },
+        "description": {
+          "type": "string",
+          "description": "-",
+          "weight": 9,
+          "title": "Description"
+        },
+        "valueDate": {
+          "format": "date-time",
+          "type": "string",
+          "description": "-",
+          "weight": 6.1,
+          "title": "Value date"
+        },
+        "provider": {
+          "items": {
+            "$ref": "#/definitions/Organization"
+          },
+          "type": "array",
+          "description": "-",
+          "weight": 0.6,
+          "title": "Provider"
+        },
+        "transactionDate": {
+          "format": "date-time",
+          "type": "string",
+          "description": "-",
+          "weight": 5,
+          "title": "Transaction date"
+        },
+        "recipient": {
+          "items": {
+            "$ref": "#/definitions/Organization"
+          },
+          "type": "array",
+          "description": "-",
+          "weight": 0.7,
+          "title": "Recipient"
+        },
+        "id": {
+          "type": "string",
+          "description": "Identifier",
+          "weight": 0.001,
+          "title": "Identifier"
+        },
+        "value": {
+          "items": {
+            "$ref": "#/definitions/o"
+          },
+          "type": "array",
+          "description": "-",
+          "weight": 6,
+          "title": "Value"
+        },
+        "dateModified": {
+          "format": "date-time",
+          "type": "string",
+          "description": "-",
+          "weight": 25,
+          "title": "Last modified"
+        }
+      }
+    },
+    "Documents": {
+      "definitions": {},
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "-",
+          "weight": 9,
+          "title": "Description"
+        },
+        "documentCategory": {
+          "items": {
+            "$ref": "#/definitions/Classification"
+          },
+          "type": "array",
+          "description": "-",
+          "weight": 0.8,
+          "title": "Document Category"
+        },
+        "url": {
+          "type": "string",
+          "description": "-",
+          "weight": 11.01,
+          "title": "Web Address"
+        },
+        "title": {
+          "type": "string",
+          "description": "-",
+          "weight": 1.05,
+          "title": "Title"
+        },
+        "dateModified": {
+          "format": "date-time",
+          "type": "string",
+          "description": "-",
+          "weight": 25,
+          "title": "Last modified"
+        },
+        "id": {
+          "type": "string",
+          "description": "Identifier",
+          "weight": 0.001,
+          "title": "Identifier"
+        }
+      }
+    },
+    "Location": {
+      "definitions": {},
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "-",
+          "weight": 1.1,
+          "title": "Name"
+        },
+        "countryCode": {
+          "type": "string",
+          "description": "Should be a valid ISO Country code.",
+          "weight": 2,
+          "title": "Country Code"
+        },
+        "point": {
+          "type": "string",
+          "description": "Enter a latitude and longitude, separated by a comma.",
+          "weight": 4.001,
+          "title": "Latitude/Longitude"
+        },
+        "description": {
+          "type": "string",
+          "description": "-",
+          "weight": 9,
+          "title": "Description"
+        },
+        "gazeteerEntry": {
+          "items": {
+            "$ref": "#/definitions/Classification"
+          },
+          "type": "array",
+          "description": "-",
+          "weight": 5,
+          "title": "Gazeteer Entry"
+        },
+        "id": {
+          "type": "string",
+          "description": "Identifier",
+          "weight": 0.001,
+          "title": "Identifier"
+        },
+        "dateModified": {
+          "format": "date-time",
+          "type": "string",
+          "description": "-",
+          "weight": 25,
+          "title": "Last modified"
+        }
+      }
+    },
+    "Classification": {
+      "definitions": {},
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "-",
+          "weight": 9,
+          "title": "Code"
+        },
+        "description": {
+          "type": "string",
+          "description": "-",
+          "weight": 9,
+          "title": "Description"
+        },
+        "vocabulary": {
+          "type": "string",
+          "description": "-",
+          "weight": 8,
+          "title": "Vocabulary"
+        },
+        "title": {
+          "type": "string",
+          "description": "-",
+          "weight": 1.05,
+          "title": "Title"
+        },
+        "dateModified": {
+          "format": "date-time",
+          "type": "string",
+          "description": "-",
+          "weight": 25,
+          "title": "Last modified"
+        },
+        "name": {
+          "type": "string",
+          "description": "-",
+          "weight": 1.1,
+          "title": "Name"
+        }
+      }
+    },
+    "Activity": {
+      "definitions": {},
+      "type": "object",
+      "properties": {
+        "classifications": {
+          "items": {
+            "$ref": "#/definitions/Classification"
+          },
+          "type": "array",
+          "description": "-",
+          "weight": 5,
+          "title": "Classifications"
+        },
+        "description": {
+          "type": "string",
+          "description": "-",
+          "weight": 9,
+          "title": "Description"
+        },
+        "title": {
+          "type": "string",
+          "description": "-",
+          "weight": 1.05,
+          "title": "Title"
+        },
+        "url": {
+          "type": "string",
+          "description": "-",
+          "weight": 11.01,
+          "title": "Web Address"
+        },
+        "fundingOrganization": {
+          "items": {
+            "$ref": "#/definitions/Organization"
+          },
+          "type": "array",
+          "description": "-",
+          "weight": 4,
+          "title": "Funding Org"
+        },
+        "actualDates": {
+          "items": {
+            "$ref": "#/definitions/Event"
+          },
+          "type": "array",
+          "description": "-",
+          "weight": 5.041,
+          "title": "Actual dates"
+        },
+        "id": {
+          "type": "string",
+          "description": "Identifier",
+          "weight": 0.001,
+          "title": "Identifier"
+        },
+        "currency": {
+          "type": "string",
+          "description": "-",
+          "weight": 5.02,
+          "title": "Currency"
+        },
+        "relatedDocument": {
+          "items": {
+            "$ref": "#/definitions/Documents"
+          },
+          "type": "array",
+          "description": "-",
+          "weight": 5,
+          "title": "Related Document"
+        },
+        "dateModified": {
+          "format": "date-time",
+          "type": "string",
+          "description": "-",
+          "weight": 25,
+          "title": "Last modified"
+        },
+        "plannedDates": {
+          "items": {
+            "$ref": "#/definitions/Event"
+          },
+          "type": "array",
+          "description": "-",
+          "weight": 5.55,
+          "title": "Planned Dates"
+        },
+        "recipientOrganization": {
+          "items": {
+            "$ref": "#/definitions/Organization"
+          },
+          "type": "array",
+          "description": "-",
+          "weight": 5,
+          "title": "Recipient Org"
+        }
+      }
+    },
+    "Organization": {
+      "definitions": {},
+      "type": "object",
+      "properties": {
+        "addressLocality": {
+          "type": "string",
+          "description": "-",
+          "weight": 3.2,
+          "title": "City"
+        },
+        "name": {
+          "type": "string",
+          "description": "-",
+          "weight": 1.1,
+          "title": "Name"
+        },
+        "organisationType": {
+          "items": {
+            "$ref": "#/definitions/Classification"
+          },
+          "type": "array",
+          "description": "-",
+          "weight": 5,
+          "title": "Organisation Type"
+        },
+        "url": {
+          "type": "string",
+          "description": "-",
+          "weight": 11.01,
+          "title": "Web Address"
+        },
+        "id": {
+          "type": "string",
+          "description": "Identifier",
+          "weight": 0.001,
+          "title": "Identifier"
+        },
+        "charityNumber": {
+          "type": "string",
+          "description": "-",
+          "weight": 6.01,
+          "title": "Charity Number"
+        },
+        "dateModified": {
+          "format": "date-time",
+          "type": "string",
+          "description": "-",
+          "weight": 25,
+          "title": "Last modified"
+        },
+        "addressCountry": {
+          "type": "string",
+          "description": "-",
+          "weight": 3.5,
+          "title": "Country"
+        },
+        "addressRegion": {
+          "type": "string",
+          "description": "-",
+          "weight": 3.3,
+          "title": "County/State"
+        },
+        "streetAddress": {
+          "type": "string",
+          "description": "-",
+          "weight": 3.1,
+          "title": "Street Address"
+        },
+        "location": {
+          "items": {
+            "$ref": "#/definitions/Location"
+          },
+          "type": "array",
+          "description": "-",
+          "weight": 5,
+          "title": "Location"
+        },
+        "contactName": {
+          "type": "string",
+          "description": "-",
+          "weight": 2,
+          "title": "Contact Name"
+        },
+        "postalCode": {
+          "type": "string",
+          "description": "-",
+          "weight": 3.4,
+          "title": "Postal Code"
+        },
+        "alternateName": {
+          "type": "string",
+          "description": "-",
+          "weight": 6,
+          "title": "Alternate Name"
+        },
+        "companyNumber": {
+          "type": "string",
+          "description": "-",
+          "weight": 6.02,
+          "title": "Company Number"
+        },
+        "email": {
+          "type": "string",
+          "description": "-",
+          "weight": 5,
+          "title": "Email"
+        },
+        "description": {
+          "type": "string",
+          "description": "-",
+          "weight": 9,
+          "title": "Description"
+        }
+      }
+    },
+    "Event": {
+      "definitions": {},
+      "type": "object",
+      "properties": {
+        "startDate": {
+          "format": "date-time",
+          "type": "string",
+          "description": "Dates should be in YYYY-MM-DD format. If only a month or day are not available, these may be omitted.\n\nThe start date of an event. At a minimum events must have a start date. ",
+          "weight": 4.1,
+          "title": "Start Date"
+        },
+        "endDate": {
+          "format": "date-time",
+          "type": "string",
+          "description": "Dates should be in YYYY-MM-DD format. If only a month or day are not available, these may be omitted.\n\nEvents lasting more than one day should have either a duration (in days) or an end date.",
+          "weight": 4.3,
+          "title": "End Date"
+        },
+        "relatedDocument": {
+          "items": {
+            "$ref": "#/definitions/Documents"
+          },
+          "type": "array",
+          "description": "-",
+          "weight": 5,
+          "title": "Related Document"
+        },
+        "title": {
+          "type": "string",
+          "description": "-",
+          "weight": 1.05,
+          "title": "Title"
+        },
+        "duration": {
+          "type": "string",
+          "description": "Events lasting more than one day should have either a duration (in days) or an end date.",
+          "weight": 4.2,
+          "title": "Duration (months)"
+        },
+        "dateModified": {
+          "format": "date-time",
+          "type": "string",
+          "description": "-",
+          "weight": 25,
+          "title": "Last modified"
+        },
+        "description": {
+          "type": "string",
+          "description": "-",
+          "weight": 9,
+          "title": "Description"
+        }
+      }
+    },
+    "o": {
+      "definitions": {},
+      "type": "object",
+      "properties": {}
+    }
+  },
+  "properties": {
+    "description": {
+      "type": "string",
+      "description": "-",
+      "weight": 9,
+      "title": "Description"
+    },
+    "applicationTransaction": {
+      "items": {
+        "$ref": "#/definitions/Transaction"
+      },
+      "type": "array",
+      "description": "-",
+      "weight": 5.02,
+      "title": "Amount applied for"
+    },
+    "fundingOrganization": {
+      "items": {
+        "$ref": "#/definitions/Organization"
+      },
+      "type": "array",
+      "description": "-",
+      "weight": 4,
+      "title": "Funding Org"
+    },
+    "beneficiaryLocation": {
+      "items": {
+        "$ref": "#/definitions/Location"
+      },
+      "type": "array",
+      "description": "-",
+      "weight": 6.01,
+      "title": "Beneficiary Location"
+    },
+    "currency": {
+      "type": "string",
+      "description": "-",
+      "weight": 5.02,
+      "title": "Currency"
+    },
+    "applicationDate": {
+      "items": {
+        "$ref": "#/definitions/Event"
+      },
+      "type": "array",
+      "description": "-",
+      "weight": 5.0256,
+      "title": "Application Date"
+    },
+    "commitmentTransaction": {
+      "items": {
+        "$ref": "#/definitions/Transaction"
+      },
+      "type": "array",
+      "description": "-",
+      "weight": 5.02,
+      "title": "Amount awarded"
+    },
+    "relatedDocument": {
+      "items": {
+        "$ref": "#/definitions/Documents"
+      },
+      "type": "array",
+      "description": "-",
+      "weight": 5,
+      "title": "Related Document"
+    },
+    "relatedActivity": {
+      "items": {
+        "$ref": "#/definitions/Activity"
+      },
+      "type": "array",
+      "description": "-",
+      "weight": 15,
+      "title": "Related Activity"
+    },
+    "fromOpenCall": {
+      "items": {
+        "$ref": "#/definitions/o"
+      },
+      "type": "array",
+      "description": "-",
+      "weight": 12,
+      "title": "From an open call?"
+    },
+    "grantProgramme": {
+      "items": {
+        "$ref": "#/definitions/Classification"
+      },
+      "type": "array",
+      "description": "-",
+      "weight": 5,
+      "title": "Grant Programme"
+    },
+    "plannedDates": {
+      "items": {
+        "$ref": "#/definitions/Event"
+      },
+      "type": "array",
+      "description": "-",
+      "weight": 5.55,
+      "title": "Planned Dates"
+    },
+    "fundingType": {
+      "items": {
+        "$ref": "#/definitions/Classification"
+      },
+      "type": "array",
+      "description": "-",
+      "weight": 5,
+      "title": "Funding Type"
+    },
+    "classifications": {
+      "items": {
+        "$ref": "#/definitions/Classification"
+      },
+      "type": "array",
+      "description": "-",
+      "weight": 5,
+      "title": "Classifications"
+    },
+    "title": {
+      "type": "string",
+      "description": "-",
+      "weight": 1.05,
+      "title": "Title"
+    },
+    "url": {
+      "type": "string",
+      "description": "-",
+      "weight": 11.01,
+      "title": "Web Address"
+    },
+    "actualDates": {
+      "items": {
+        "$ref": "#/definitions/Event"
+      },
+      "type": "array",
+      "description": "-",
+      "weight": 5.041,
+      "title": "Actual dates"
+    },
+    "disbursementTransaction": {
+      "items": {
+        "$ref": "#/definitions/Transaction"
+      },
+      "type": "array",
+      "description": "-",
+      "weight": 5,
+      "title": "Amount paid out"
+    },
+    "id": {
+      "type": "string",
+      "description": "Identifier",
+      "weight": 0.001,
+      "title": "Identifier"
+    },
+    "awardDate": {
+      "items": {
+        "$ref": "#/definitions/Event"
+      },
+      "type": "array",
+      "description": "-",
+      "weight": 5.0257,
+      "title": "Award Date"
+    },
+    "dateModified": {
+      "format": "date-time",
+      "type": "string",
+      "description": "-",
+      "weight": 25,
+      "title": "Last modified"
+    },
+    "recipientOrganization": {
+      "items": {
+        "$ref": "#/definitions/Organization"
+      },
+      "type": "array",
+      "description": "-",
+      "weight": 5,
+      "title": "Recipient Org"
+    }
+  }
+}
