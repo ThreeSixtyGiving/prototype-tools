@@ -1,7 +1,6 @@
 {
   "definitions": {
     "Transaction": {
-      "definitions": {},
       "type": "object",
       "properties": {
         "currency": {
@@ -24,11 +23,8 @@
           "title": "Value date"
         },
         "provider": {
-          "items": {
-            "$ref": "#/definitions/Organization"
-          },
-          "type": "array",
-          "description": "-",
+          "type": "string",
+          "description": "The organisation identifier of the provider of transaction funds.",
           "weight": 0.6,
           "title": "Provider"
         },
@@ -40,11 +36,8 @@
           "title": "Transaction date"
         },
         "recipient": {
-          "items": {
-            "$ref": "#/definitions/Organization"
-          },
-          "type": "array",
-          "description": "-",
+         "type": "string",
+          "description": "The organisation identifier of the recipient of transaction funds.",
           "weight": 0.7,
           "title": "Recipient"
         },
@@ -55,10 +48,7 @@
           "title": "Identifier"
         },
         "value": {
-          "items": {
-            "$ref": "#/definitions/o"
-          },
-          "type": "array",
+          "type": "integer",
           "description": "-",
           "weight": 6,
           "title": "Value"
@@ -73,7 +63,6 @@
       }
     },
     "Documents": {
-      "definitions": {},
       "type": "object",
       "properties": {
         "description": {
@@ -84,7 +73,7 @@
         },
         "documentCategory": {
           "items": {
-            "$ref": "#/definitions/Classification"
+            "$ref": "#/definitions/DocumentClassification"
           },
           "type": "array",
           "description": "-",
@@ -148,7 +137,7 @@
         },
         "gazeteerEntry": {
           "items": {
-            "$ref": "#/definitions/Classification"
+            "$ref": "#/definitions/Gazeteer"
           },
           "type": "array",
           "description": "-",
@@ -171,7 +160,6 @@
       }
     },
     "Classification": {
-      "definitions": {},
       "type": "object",
       "properties": {
         "code": {
@@ -213,6 +201,132 @@
         }
       }
     },
+    "DocumentClassification": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "-",
+            "weight": 9,
+            "title": "Code"
+          },
+          "description": {
+            "type": "string",
+            "description": "-",
+            "weight": 9,
+            "title": "Description"
+          },
+          "vocabulary": {
+            "type": "string",
+            "description": "-",
+            "weight": 8,
+            "title": "Vocabulary"
+          },
+          "title": {
+            "type": "string",
+            "description": "-",
+            "weight": 1.05,
+            "title": "Title"
+          },
+          "dateModified": {
+            "format": "date-time",
+            "type": "string",
+            "description": "-",
+            "weight": 25,
+            "title": "Last modified"
+          },
+          "name": {
+            "type": "string",
+            "description": "-",
+            "weight": 1.1,
+            "title": "Name"
+          }
+        }
+      },
+      "Gazeteer": {
+          "type": "object",
+          "properties": {
+            "code": {
+              "type": "string",
+              "description": "-",
+              "weight": 9,
+              "title": "Code"
+            },
+            "description": {
+              "type": "string",
+              "description": "-",
+              "weight": 9,
+              "title": "Description"
+            },
+            "vocabulary": {
+              "type": "string",
+              "description": "-",
+              "weight": 8,
+              "title": "Vocabulary"
+            },
+            "title": {
+              "type": "string",
+              "description": "-",
+              "weight": 1.05,
+              "title": "Title"
+            },
+            "dateModified": {
+              "format": "date-time",
+              "type": "string",
+              "description": "-",
+              "weight": 25,
+              "title": "Last modified"
+            },
+            "name": {
+              "type": "string",
+              "description": "-",
+              "weight": 1.1,
+              "title": "Name"
+            }
+          }
+        },
+        "GrantProgramme": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "description": "-",
+                  "weight": 9,
+                  "title": "Code"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "-",
+                  "weight": 9,
+                  "title": "Description"
+                },
+                "vocabulary": {
+                  "type": "string",
+                  "description": "-",
+                  "weight": 8,
+                  "title": "Vocabulary"
+                },
+                "title": {
+                  "type": "string",
+                  "description": "-",
+                  "weight": 1.05,
+                  "title": "Title"
+                },
+                "dateModified": {
+                  "format": "date-time",
+                  "type": "string",
+                  "description": "-",
+                  "weight": 25,
+                  "title": "Last modified"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "-",
+                  "weight": 1.1,
+                  "title": "Name"
+                }
+              }
+            },
     "Activity": {
       "definitions": {},
       "type": "object",
@@ -478,11 +592,6 @@
           "title": "Description"
         }
       }
-    },
-    "o": {
-      "definitions": {},
-      "type": "object",
-      "properties": {}
     }
   },
   "properties": {
@@ -548,31 +657,29 @@
         "$ref": "#/definitions/Documents"
       },
       "type": "array",
-      "description": "-",
+      "description": "Related documents including application forms, reports and media (photos/videos) associated with this activity.",
       "weight": 5,
       "title": "Related Document"
     },
     "relatedActivity": {
-      "items": {
-        "$ref": "#/definitions/Activity"
-      },
       "type": "array",
-      "description": "-",
+      "items": {
+        "type":"string"
+      },
+      "description": "The identifiers of any related activities (e.g. other grants given as part of a multi-grant project)",
       "weight": 15,
       "title": "Related Activity"
     },
     "fromOpenCall": {
-      "items": {
-        "$ref": "#/definitions/o"
-      },
-      "type": "array",
-      "description": "-",
+      "type": "string",
+      "enum": ["Yes","No"],
+      "description": "Was this grant made as the result of an open call for applications? Values should be 'Yes' or 'No'",
       "weight": 12,
       "title": "From an open call?"
     },
     "grantProgramme": {
       "items": {
-        "$ref": "#/definitions/Classification"
+        "$ref": "#/definitions/GrantProgramme"
       },
       "type": "array",
       "description": "-",
